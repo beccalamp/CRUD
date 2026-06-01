@@ -28,7 +28,7 @@
                 <PasswordBox Name="txtSenha" Height="35" VerticalContentAlignment="Center" Padding="5,0" Margin="0,0,0,25"/>
 
                 <!-- Botão Entrar -->
-                <Button Name="btnEntrar" Content="Entrar" Height="40" Background="#448AFF" Foreground="White" FontWeight="Bold" BorderThickness="0" Margin="0,0,0,15" >
+                <Button Name="btnEntrar" Content="Entrar" Height="40" Background="#448AFF" Foreground="White" FontWeight="Bold" BorderThickness="0" Margin="0,0,0,15" Click="BtnEntrar_OnClick" >
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="5"/>
