@@ -59,7 +59,11 @@ public partial class MainWindow : Window
                 }
             }
         }
-        
-        // Caso não, acessar o banco de dados e procurar pelo usuario e senha usando o select criado no MySQL Workbench
+    }
+
+    private void BtnIrParaCadastro_OnClick(object sender, RoutedEventArgs e)
+    {
+        var janelaCadastro = new Cadastro();
+        janelaCadastro.ShowDialog();
     }
 }
