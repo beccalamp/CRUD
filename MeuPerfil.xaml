@@ -1,0 +1,120 @@
+<Window x:Class="CRUD.MeuPerfil"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:CRUD"
+        mc:Ignorable="d"
+        Title="Meu Perfil" Height="680" Width="800"
+        WindowStartupLocation="CenterScreen">
+    
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Border Background="White"
+                CornerRadius="8"
+                Padding="30"
+                Width="380">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="15" Direction="-90" RenderingBias="Quality" ShadowDepth="2" Opacity="0.1" />
+            </Border.Effect>
+
+            <StackPanel>
+                <TextBlock Text="Meu Perfil"
+                           FontSize="24"
+                           FontWeight="Bold"
+                           Foreground="#111827"
+                           Margin="0,0,0,15"
+                           HorizontalAlignment="Center" />
+
+                <Ellipse x:Name="ProfileImage" 
+                         Width="90" 
+                         Height="90" 
+                         HorizontalAlignment="Center">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="https://jpimg.com.br/uploads/2024/12/7-racas-de-gato-com-filhotes-muito-fofos.jpg" Stretch="UniformToFill"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+
+                <TextBlock Text="Nome"
+                           FontSize="14"
+                           Foreground="#374151"
+                           Margin="0,0,0,5" />
+                <TextBox x:Name="TxtNome"
+                         Height="35"
+                         Margin="0,0,0,15"
+                         VerticalContentAlignment="Center"
+                         Padding="5,0" />
+
+                <TextBlock Text="E-mail"
+                           FontSize="14"
+                           Foreground="#374151"
+                           Margin="0,0,0,5" />
+                <TextBox x:Name="TxtEmail"
+                         Height="35"
+                         Margin="0,0,0,15"
+                         VerticalContentAlignment="Center"
+                         Padding="5,0" />
+
+                <TextBlock Text="Username"
+                           FontSize="14"
+                           Foreground="#374151"
+                           Margin="0,0,0,5" />
+                <TextBox x:Name="TxtUsername"
+                         Height="35"
+                         Margin="0,0,0,15"
+                         VerticalContentAlignment="Center"
+                         Padding="5,0" />
+
+                <TextBlock Text="Nova Senha"
+                           FontSize="14"
+                           Foreground="#374151"
+                           Margin="0,0,0,5" />
+                <PasswordBox x:Name="TxtSenha"
+                             Height="35"
+                             Margin="0,0,0,25"
+                             VerticalContentAlignment="Center"
+                             Padding="5,0" />
+
+                <Button x:Name="BtnSalvar"
+                        Content="Salvar Alterações"
+                        Height="40"
+                        Background="#2563EB"
+                        Foreground="White"
+                        FontWeight="Bold"
+                        BorderThickness="0"
+                        Cursor="Hand"
+                        Click="BtnSalvar_OnClick">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5" />
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+                <Button x:Name="BtnDeletarPerfil"
+                        Content="Excluir Minha Conta"
+                        Background="Transparent"
+                        Foreground="#DC2626"
+                        BorderThickness="0"
+                        Margin="0,15,0,0"
+                        Cursor="Hand">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <TextBlock Text="{TemplateBinding Content}"
+                                                   HorizontalAlignment="Center"
+                                                   FontWeight="SemiBold"
+                                                   FontSize="13"
+                                                   TextDecorations="Underline" />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+                </Button>
+
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
