@@ -81,7 +81,9 @@
                         Foreground="White"
                         FontWeight="Bold"
                         BorderThickness="0"
-                        Cursor="Hand">
+                        Cursor="Hand"
+                        Click="BtnSalvar_OnClick"
+                        >
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="5" />
