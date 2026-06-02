@@ -27,42 +27,42 @@ public partial class MainWindow : Window
             return;
         }
 
-        using (var conexao = new MySqlConnection(App.StringConexao))
+        using var conexao = new MySqlConnection(App.StringConexao);
+        var query = "SELECT * FROM usuarios WHERE username = @username AND senha = @senha";
+
+        using var comando = new MySqlCommand(query, conexao);
+        comando.Parameters.AddWithValue("@username", txtUsuario.Text);
+        comando.Parameters.AddWithValue("@senha", txtSenha.Password);
+
+        try
         {
-            var query = "SELECT * FROM usuarios WHERE username = @username AND senha = @senha";
-
-            using (var comando = new MySqlCommand(query, conexao))
+            conexao.Open();
+            using var leitor = comando.ExecuteReader();
+            if (!leitor.HasRows)
             {
-                comando.Parameters.AddWithValue("@username", txtUsuario.Text);
-                comando.Parameters.AddWithValue("@senha", txtSenha.Password);
 
-                try
-                {
-                    conexao.Open();
-                    using (var leitor = comando.ExecuteReader())
-                    {
-                        if (!leitor.HasRows)
-                        {
-
-                            MessageBox.Show("Usuário ou senha incorretos.", "Erro!");
-                            return;
-                        }
+                MessageBox.Show("Usuário ou senha incorretos.", "Erro!");
+                return;
+            }
 
 
-                        while (leitor.Read())
-                        {
-                            MessageBox.Show(leitor.GetString(1));
-                        }
-                    }
-                }
-                catch (Exception exception)
-                {
-                    Console.WriteLine(exception);
-                    return;
-                }
+            while (leitor.Read())
+            {
+                MessageBox.Show(leitor.GetString(1));
             }
         }
+        catch (Exception exception)
+        {
+            Console.WriteLine(exception);
+            return;
+        }
     }
+
+    private void BtnCadastro_OnClick(object sender, RoutedEventArgs e)
+{
+    var janelaCadastro = new Cadastro();
+    Hide();
+    janelaCadastro.ShowDialog();
+    Show();
 }
-        
-    
+}
