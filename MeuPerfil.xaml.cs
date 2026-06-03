@@ -24,21 +24,24 @@ public partial class MeuPerfil : Window
         // Validação 
         if (string.IsNullOrWhiteSpace(TxtNome.Text))
         {
-            MessageBox.Show("O campo NOME não pode estar vazio!", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show("O campo NOME não pode estar vazio!", "Aviso", MessageBoxButton.OK,
+                MessageBoxImage.Warning);
             TxtUsername.Focus();
             return;
         }
 
         if (string.IsNullOrWhiteSpace(TxtEmail.Text))
         {
-            MessageBox.Show("O campo USUARIO não pode estar vazio!", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show("O campo USUARIO não pode estar vazio!", "Aviso", MessageBoxButton.OK,
+                MessageBoxImage.Warning);
             TxtUsername.Focus();
             return;
         }
 
         if (string.IsNullOrWhiteSpace(TxtEmail.Text))
         {
-            MessageBox.Show("O campo EMAIL não pode estar vazio!", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show("O campo EMAIL não pode estar vazio!", "Aviso", MessageBoxButton.OK,
+                MessageBoxImage.Warning);
             TxtEmail.Focus();
             return;
         }
@@ -54,23 +57,23 @@ public partial class MeuPerfil : Window
         var query = "UPDATE usuarios SET username = @username, nome = @nome, email = @email";
 
         if (senhaFoiAlterada) query += ", senha = @senha ";
-        
+
         query += " WHERE id = @id";
-        
+
         using var comando = new MySqlCommand(query, conexao);
-        
+
         comando.Parameters.AddWithValue("@username", UsuarioAtual.Username);
         comando.Parameters.AddWithValue("@nome", UsuarioAtual.Nome);
         comando.Parameters.AddWithValue("@email", UsuarioAtual.Email);
         comando.Parameters.AddWithValue("@id", UsuarioAtual.Id);
-        
+
         if (senhaFoiAlterada) comando.Parameters.AddWithValue("@senha", UsuarioAtual.Senha);
 
         try
         {
             conexao.Open();
             var linhasaAfetadas = comando.ExecuteNonQuery();
-            
+
             if (linhasaAfetadas > 0)
                 MessageBox.Show("Cadastro Atualizado com Sucesso!");
             else
@@ -79,6 +82,38 @@ public partial class MeuPerfil : Window
         catch (Exception exception)
         {
             MessageBox.Show($"Erro de DB.");
+        }
+    }
+
+    private void BtnDeletarPerfil_OnClick(object sender, RoutedEventArgs e)
+    {
+        var resultadoMessageBox = MessageBox.Show("Você tem certeza que deseja apagar seu perfil?",
+            "Confirmação de Exclusão", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+        if (resultadoMessageBox == MessageBoxResult.No) return;
+
+
+        const string query = "DELETE FROM usuarios WHERE id = @id";
+        using MySqlConnection conexao = new MySqlConnection(App.StringConexao);
+        using MySqlCommand comando = new MySqlCommand(query, conexao);
+        comando.Parameters.AddWithValue("@id", UsuarioAtual.Id);
+        try
+        {
+            conexao.Open();
+            var linhasAfetadas = comando.ExecuteNonQuery();
+            if (linhasAfetadas > 0)
+            {
+                MessageBox.Show("Conta Excluída com Sucesso!");
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Erro ao excluir a Conta!");
+            }
+        }
+        catch (Exception exception)
+        {
+            MessageBox.Show($"Erro de DB: {exception.Message}");
         }
     }
 }
