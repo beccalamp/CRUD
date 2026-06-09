@@ -6,7 +6,7 @@ namespace CRUD;
 
 public partial class MeuPerfil : Window
 {
-    private Usuario UsuarioAtual;
+    private readonly Usuario UsuarioAtual;
 
     public MeuPerfil(Usuario usuario)
     {
@@ -81,7 +81,7 @@ public partial class MeuPerfil : Window
         }
         catch (Exception exception)
         {
-            MessageBox.Show($"Erro de DB.");
+            MessageBox.Show("Erro de DB.");
         }
     }
 
@@ -94,8 +94,8 @@ public partial class MeuPerfil : Window
 
 
         const string query = "DELETE FROM usuarios WHERE id = @id";
-        using MySqlConnection conexao = new MySqlConnection(App.StringConexao);
-        using MySqlCommand comando = new MySqlCommand(query, conexao);
+        using var conexao = new MySqlConnection(App.StringConexao);
+        using var comando = new MySqlCommand(query, conexao);
         comando.Parameters.AddWithValue("@id", UsuarioAtual.Id);
         try
         {
@@ -104,7 +104,7 @@ public partial class MeuPerfil : Window
             if (linhasAfetadas > 0)
             {
                 MessageBox.Show("Conta Excluída com Sucesso!");
-                this.Close();
+                Close();
             }
             else
             {

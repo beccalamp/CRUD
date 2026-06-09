@@ -1,13 +1,11 @@
-﻿using System.IO;
-using System.Windows;
+﻿using System.Windows;
 using MySql.Data.MySqlClient;
 
 namespace CRUD;
 
 public partial class Cadastro : Window
 {
-    
-    public Cadastro() 
+    public Cadastro()
     {
         InitializeComponent();
     }
@@ -22,7 +20,8 @@ public partial class Cadastro : Window
         }
 
         using var conexao = new MySqlConnection(App.StringConexao);
-        const string query = "INSERT INTO usuarios(nome, username, email, senha) VALUES(@nome, @username, @email, @senha)";
+        const string query =
+            "INSERT INTO usuarios(nome, username, email, senha) VALUES(@nome, @username, @email, @senha)";
 
         using var comando = new MySqlCommand(query, conexao);
         comando.Parameters.AddWithValue("@nome", txtNome.Text);
@@ -35,11 +34,7 @@ public partial class Cadastro : Window
             conexao.Open();
 
             var linhasAfetadas = comando.ExecuteNonQuery();
-            if (linhasAfetadas > 0)
-            {
-                MessageBox.Show("Cadastro efetuado com sucesso!");
-                return;
-            }
+            if (linhasAfetadas > 0) MessageBox.Show("Cadastro efetuado com sucesso!");
         }
         catch (Exception exception)
         {
@@ -52,7 +47,6 @@ public partial class Cadastro : Window
                 }
 
             Console.WriteLine(exception);
-            return;
         }
     }
 }

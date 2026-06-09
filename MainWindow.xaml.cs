@@ -41,7 +41,6 @@ public partial class MainWindow : Window
             using var leitor = comando.ExecuteReader();
             if (!leitor.HasRows)
             {
-
                 MessageBox.Show("Usuário ou senha incorretos.", "Erro!");
                 return;
             }
@@ -50,30 +49,27 @@ public partial class MainWindow : Window
             while (leitor.Read())
             {
                 var usuarioBanco = new Usuario();
-                
+
                 usuarioBanco.Id = leitor.GetInt32(0);
-                usuarioBanco.Nome = leitor.GetString(1); 
+                usuarioBanco.Nome = leitor.GetString(1);
                 usuarioBanco.Email = leitor.GetString(2);
                 usuarioBanco.Username = leitor.GetString(4);
-                
-                
-                
-              new MeuPerfil(usuarioBanco).Show();
+
+
+                new MeuPerfil(usuarioBanco).Show();
             }
         }
         catch (Exception exception)
         {
-            
             Console.WriteLine(exception);
-            return;
         }
     }
 
     private void BtnCadastro_OnClick(object sender, RoutedEventArgs e)
-{
-    var janelaCadastro = new Cadastro();
-    Hide();
-    janelaCadastro.ShowDialog();
-    Show();
-}
+    {
+        var janelaCadastro = new Cadastro();
+        Hide();
+        janelaCadastro.ShowDialog();
+        Show();
+    }
 }
