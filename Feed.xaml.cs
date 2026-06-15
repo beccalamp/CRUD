@@ -1,4 +1,5 @@
 using System.Windows;
+using System.Windows.Controls;
 using CRUD.Modelos;
 using MySql.Data.MySqlClient;
 
@@ -6,8 +7,11 @@ namespace CRUD;
 
 public partial class Feed : Window
 {
-    public Feed()
+    private Usuario _usuario;
+
+    public Feed(Usuario usuario)
     {
+        _usuario = usuario;
         InitializeComponent();
         CarregarPost_QuandoIniciar();
     }
@@ -26,17 +30,14 @@ public partial class Feed : Window
         {
             conexao.Open();
 
-            // Executa o comando e guarda na variável leitor
             using var leitor = command.ExecuteReader();
 
-            // Verifica se NÃO tem linhas
             if (!leitor.HasRows)
             {
                 MessageBox.Show("Nenhuma postagem foi encontrada.");
                 return;
             }
 
-            // Se tiver, lê linha por linha na repetição
             while (leitor.Read())
             {
                 var post = new Postagem
@@ -47,15 +48,14 @@ public partial class Feed : Window
                     Postado_em = leitor.GetDateTime("postado_em"),
                     Usuario = new Usuario
                     {
-                    Nome = leitor.GetString("Nome"),
-                    Username = leitor.GetString("Username")
-                }
-                    
+                        Nome = leitor.GetString("Nome"),
+                        Username = leitor.GetString("Username")
+                    }
                 };
 
                 ListaPostagem.Add(post);
             }
-            
+
             ItemsControlFeed.ItemsSource = ListaPostagem;
         }
         catch (MySqlException ex)
@@ -65,6 +65,50 @@ public partial class Feed : Window
         catch (Exception ex)
         {
             MessageBox.Show($"Erro: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    private void BtnCurtir_OnClick(object sender, RoutedEventArgs e)
+    {
+        var botao = (Button)sender;
+        var postagem = (Postagem)botao.Tag;
+        var query = "SELECT 1 FROM curtidas_postagens WHERE usuario_id = @usuario AND postagem_id = @postagem";
+        
+
+        using var conexao = new MySqlConnection(App.StringConexao);
+
+        using var comando = new MySqlCommand(query, conexao);
+
+        comando.Parameters.AddWithValue("@usuario", _usuario.Id);
+        comando.Parameters.AddWithValue("@postagens", postagem.id);
+        
+
+        try
+        {
+            conexao.Open();
+            var leitor = comando.ExecuteReader();
+            string acao;
+
+            if (leitor.HasRows)
+            {
+                query = "DELETE FROM curtidas_postagens WHERE usuario_id = @usuario AND postagem_id = @postagem";
+                acao = "descurtir";
+            }
+            else
+            {
+                query = "INSERT INTO curtidas_postagens(usuario_id, postagem_id) VALUES(@usuario, @postagens)";
+                acao = "curtir";
+            }
+            
+            conexao.Close();
+            comando.CommandText = query;
+            conexao.Open();
+            var linhasAfetadas = comando.ExecuteNonQuery();
+            if (linhasAfetadas == 0) throw new Exception("Erro ao curtir postagem!");
+        }
+        catch (Exception excecao)
+        {
+            MessageBox.Show(excecao.Message);
         }
     }
 }

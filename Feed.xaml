@@ -48,6 +48,8 @@
                                         </Grid.ColumnDefinitions>
 
                                         <TextBlock Grid.Column="0"
+
+
                                                    Text="{Binding Usuario.Nome}"
                                                    FontWeight="Bold"
                                                    FontSize="14"
@@ -62,7 +64,7 @@
 
                                         <TextBlock Grid.Column="2"
                                                    Text="{Binding Postado_em, StringFormat='dd MMM - HH:mm'}"
-                                                   Foreground="#6B7280" 
+                                                   Foreground="#6B7280"
                                                    HorizontalAlignment="Right"
                                                    FontSize="14" />
                                     </Grid>
@@ -82,8 +84,12 @@
                                                 Foreground="#EF4444"
                                                 FontWeight="SemiBold"
                                                 FontSize="14"
-                                                Cursor="Hand"
+                                                Cursor="Hand" Click="BtnCurtir_OnClick"
+                                                Tag="{Binding}"
                                                 Padding="0,4,8,4" />
+                                        <TextBlock VerticalAlignment="Center" Margin="8,0"
+                                                   Text="{Binding Curtidas, StringFormat='{}{0} curtidas'}">
+                                        </TextBlock>
                                     </StackPanel>
                                 </Grid>
                             </Border>

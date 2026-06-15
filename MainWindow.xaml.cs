@@ -56,7 +56,7 @@ public partial class MainWindow : Window
                 usuarioBanco.Username = leitor.GetString(4);
 
 
-                new MeuPerfil(usuarioBanco).Show();
+                new Feed(usuarioBanco).Show();
             }
         }
         catch (Exception exception)
@@ -65,11 +65,13 @@ public partial class MainWindow : Window
         }
     }
 
-    private void BtnCadastro_OnClick(object sender, RoutedEventArgs e)
+    private void BtnCadastrar_OnClick(object sender, RoutedEventArgs e)
     {
         var janelaCadastro = new Cadastro();
         Hide();
         janelaCadastro.ShowDialog();
         Show();
     }
+
+    
 }

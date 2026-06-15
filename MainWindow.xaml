@@ -42,7 +42,7 @@
 
                 <!-- Botão Cadastrar -->
                 <Button Name="btnCadastrar" Content="Não tem uma conta? Cadastre-se" Background="Transparent"
-                        Foreground="#448AFF" BorderThickness="0" Cursor="Hand" />
+                        Foreground="#448AFF" BorderThickness="0" Cursor="Hand" Click="BtnCadastrar_OnClick" />
             </StackPanel>
         </Border>
     </Grid>
