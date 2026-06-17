@@ -6,7 +6,7 @@ namespace CRUD;
 
 public partial class MeuPerfil : Window
 {
-    private Usuario UsuarioAtual;
+    private readonly Usuario UsuarioAtual;
 
     public MeuPerfil(Usuario usuario)
     {
@@ -81,10 +81,11 @@ public partial class MeuPerfil : Window
 
     private void BtnDeletarPerfil_OnClick(object sender, RoutedEventArgs e)
     {
-        var resultadoMessageBox = MessageBox.Show("Você tem certeza que deseja apagar o seu perfil?", "Confirmação de Exclusão", MessageBoxButton.YesNo, MessageBoxImage.Question);
-        
+        var resultadoMessageBox = MessageBox.Show("Você tem certeza que deseja apagar o seu perfil?",
+            "Confirmação de Exclusão", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
         if (resultadoMessageBox == MessageBoxResult.No) return;
-        
+
         // Criar uma query
         const string query = "DELETE FROM usuarios WHERE id = @id";
         // Criar a conexao

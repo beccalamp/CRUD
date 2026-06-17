@@ -19,7 +19,7 @@ public partial class MainWindow : Window
             TxtUsuario.Focus();
             return;
         }
-        
+
         if (string.IsNullOrWhiteSpace(TxtSenha.Password))
         {
             MessageBox.Show("Preencha o campo de senha!");
@@ -33,7 +33,7 @@ public partial class MainWindow : Window
         using var comando = new MySqlCommand(query, conexao);
         comando.Parameters.AddWithValue("@username", TxtUsuario.Text);
         comando.Parameters.AddWithValue("@senha", TxtSenha.Password);
-                
+
         try
         {
             conexao.Open();
@@ -53,14 +53,13 @@ public partial class MainWindow : Window
                 usuarioBanco.Email = leitor.GetString(2);
                 usuarioBanco.Senha = leitor.GetString(3);
                 usuarioBanco.Username = leitor.GetString(4);
-                
+
                 new Feed(usuarioBanco).Show();
             }
         }
         catch (Exception exception)
         {
             Console.WriteLine(exception);
-            return;
         }
     }
 

@@ -51,7 +51,7 @@
                                                                Margin="5,0,0,0"
                                                                Opacity="0.7" />
                                                 </StackPanel>
-                                                <TextBlock Text="{Binding Postado_em, StringFormat='dd MMM - HH:mm'}"
+                                                <TextBlock Text="{Binding PostadoEm, StringFormat='dd MMM - HH:mm'}"
                                                            Foreground="#374151"
                                                            FontSize="12"
                                                            Opacity="0.5"
@@ -82,7 +82,8 @@
                                                             <Setter Property="Background" Value="Transparent" />
                                                             <Setter Property="Foreground" Value="Black" />
                                                             <Style.Triggers>
-                                                                <DataTrigger Binding="{Binding FoiCurtido}" Value="True">
+                                                                <DataTrigger Binding="{Binding FoiCurtido}"
+                                                                             Value="True">
                                                                     <Setter Property="Foreground" Value="#FF0000" />
                                                                 </DataTrigger>
                                                             </Style.Triggers>

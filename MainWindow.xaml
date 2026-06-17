@@ -24,7 +24,7 @@
                            Foreground="#111827"
                            Margin="0,0,0,20"
                            HorizontalAlignment="Center" />
-                
+
                 <TextBlock Text="Usuário"
                            FontSize="14"
                            Foreground="#374151"
@@ -34,7 +34,7 @@
                          Margin="0,0,0,15"
                          VerticalContentAlignment="Center"
                          Padding="5,0" />
-                
+
                 <TextBlock Text="Senha"
                            FontSize="14"
                            Foreground="#374151"
@@ -44,7 +44,7 @@
                              Margin="0,0,0,25"
                              VerticalContentAlignment="Center"
                              Padding="5,0" />
-                
+
                 <Button x:Name="BtnLogin"
                         Content="Entrar"
                         Height="40"
@@ -60,7 +60,7 @@
                         </Style>
                     </Button.Resources>
                 </Button>
-                
+
                 <Button x:Name="BtnCadastro"
                         Content="Não tem uma conta? Cadastre-se"
                         Background="Transparent"
@@ -68,8 +68,7 @@
                         BorderThickness="0"
                         Margin="0,15,0,0"
                         Cursor="Hand"
-                        Click="BtnCadastro_OnClick"
-                        >
+                        Click="BtnCadastro_OnClick">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Template">
