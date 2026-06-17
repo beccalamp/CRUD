@@ -1,4 +1,4 @@
-using System.Windows;
+﻿using System.Windows;
 using CRUD.Modelos;
 using MySql.Data.MySqlClient;
 
@@ -6,14 +6,12 @@ namespace CRUD;
 
 public partial class MeuPerfil : Window
 {
-    private readonly Usuario UsuarioAtual;
+    private Usuario UsuarioAtual;
 
     public MeuPerfil(Usuario usuario)
     {
         InitializeComponent();
         UsuarioAtual = usuario;
-
-
         TxtNome.Text = UsuarioAtual.Nome;
         TxtEmail.Text = UsuarioAtual.Email;
         TxtUsername.Text = UsuarioAtual.Username;
@@ -21,28 +19,24 @@ public partial class MeuPerfil : Window
 
     private void BtnSalvar_OnClick(object sender, RoutedEventArgs e)
     {
-        // Validação 
         if (string.IsNullOrWhiteSpace(TxtNome.Text))
         {
-            MessageBox.Show("O campo NOME não pode estar vazio!", "Aviso", MessageBoxButton.OK,
-                MessageBoxImage.Warning);
-            TxtUsername.Focus();
+            MessageBox.Show("O campo NOME não pode estar vazio.");
+            TxtNome.Focus();
             return;
         }
 
         if (string.IsNullOrWhiteSpace(TxtEmail.Text))
         {
-            MessageBox.Show("O campo USUARIO não pode estar vazio!", "Aviso", MessageBoxButton.OK,
-                MessageBoxImage.Warning);
-            TxtUsername.Focus();
-            return;
-        }
-
-        if (string.IsNullOrWhiteSpace(TxtEmail.Text))
-        {
-            MessageBox.Show("O campo EMAIL não pode estar vazio!", "Aviso", MessageBoxButton.OK,
-                MessageBoxImage.Warning);
+            MessageBox.Show("O campo EMAIL não pode estar vazio.");
             TxtEmail.Focus();
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(TxtUsername.Text))
+        {
+            MessageBox.Show("O campo USERNAME não pode estar vazio.");
+            TxtUsername.Focus();
             return;
         }
 
@@ -56,7 +50,7 @@ public partial class MeuPerfil : Window
         using var conexao = new MySqlConnection(App.StringConexao);
         var query = "UPDATE usuarios SET username = @username, nome = @nome, email = @email";
 
-        if (senhaFoiAlterada) query += ", senha = @senha ";
+        if (senhaFoiAlterada) query += ", senha = @senha";
 
         query += " WHERE id = @id";
 
@@ -72,12 +66,12 @@ public partial class MeuPerfil : Window
         try
         {
             conexao.Open();
-            var linhasaAfetadas = comando.ExecuteNonQuery();
+            var linhasAfetadas = comando.ExecuteNonQuery();
 
-            if (linhasaAfetadas > 0)
-                MessageBox.Show("Cadastro Atualizado com Sucesso!");
+            if (linhasAfetadas > 0)
+                MessageBox.Show("Cadastro atualizado com sucesso!");
             else
-                MessageBox.Show("Erro ao Atualizar o Cadastro!");
+                MessageBox.Show("Erro ao atualizar o cadastro!");
         }
         catch (Exception exception)
         {
@@ -87,33 +81,35 @@ public partial class MeuPerfil : Window
 
     private void BtnDeletarPerfil_OnClick(object sender, RoutedEventArgs e)
     {
-        var resultadoMessageBox = MessageBox.Show("Você tem certeza que deseja apagar seu perfil?",
-            "Confirmação de Exclusão", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
+        var resultadoMessageBox = MessageBox.Show("Você tem certeza que deseja apagar o seu perfil?", "Confirmação de Exclusão", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        
         if (resultadoMessageBox == MessageBoxResult.No) return;
-
-
+        
+        // Criar uma query
         const string query = "DELETE FROM usuarios WHERE id = @id";
+        // Criar a conexao
         using var conexao = new MySqlConnection(App.StringConexao);
+        // Criar o comando
         using var comando = new MySqlCommand(query, conexao);
+        // Adicionar os parametros
         comando.Parameters.AddWithValue("@id", UsuarioAtual.Id);
         try
         {
+            // Abrir conexao
             conexao.Open();
+            // Executar o comando
             var linhasAfetadas = comando.ExecuteNonQuery();
+            // Verificar se o comando foi executado
             if (linhasAfetadas > 0)
             {
-                MessageBox.Show("Conta Excluída com Sucesso!");
+                MessageBox.Show("Perfil deletado com sucesso!");
+                // Se ele foi executado, fechar a janela MeuPerfil
                 Close();
-            }
-            else
-            {
-                MessageBox.Show("Erro ao excluir a Conta!");
             }
         }
         catch (Exception exception)
         {
-            MessageBox.Show($"Erro de DB: {exception.Message}");
+            Console.WriteLine(exception);
         }
     }
 }
