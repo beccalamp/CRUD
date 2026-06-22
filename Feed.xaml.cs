@@ -117,5 +117,12 @@ public partial class Feed : Window
     private void BtnNovoPost_OnClick(object sender, RoutedEventArgs e)
     {
         new NovaPostagem(_usuario).ShowDialog();
+        CarregarPosts_QuandoIniciar();
+    }
+
+    private void BtnPerfil_OnClick(object sender, RoutedEventArgs e)
+    {
+        new MeuPerfil(_usuario).ShowDialog();
+        CarregarPosts_QuandoIniciar();
     }
 }

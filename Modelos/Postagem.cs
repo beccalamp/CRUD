@@ -20,22 +20,6 @@ public class Postagem : INotifyPropertyChanged
         }
     }
 
-    public DateTime PostadoEm { get; set; } = default!;
-    public Usuario Usuario { get; set; } = null!;
-
-    public int Id { get; set; }
-    public string Conteudo { get; set; } = string.Empty;
-
-    public int Curtidas
-    {
-        get => _curtidas;
-        set
-        {
-            _curtidas = value;
-            NotificarPropriedadeAlterada();
-        }
-    }
-
     public DateTime PostadoEm { get; set; }
     public Usuario Usuario { get; set; } = null!;
 
