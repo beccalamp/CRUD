@@ -33,7 +33,8 @@
                          Height="35"
                          Margin="0,0,0,15"
                          VerticalContentAlignment="Center"
-                         Padding="5,0" />
+                         Padding="5,0"
+                         />
 
                 <TextBlock Text="Senha"
                            FontSize="14"
@@ -53,6 +54,7 @@
                         FontWeight="Bold"
                         BorderThickness="0"
                         Cursor="Hand"
+                        IsDefault="True"
                         Click="BtnLogin_OnClick">
                     <Button.Resources>
                         <Style TargetType="Border">

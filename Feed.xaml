@@ -7,12 +7,15 @@
         mc:Ignorable="d"
         Title="Feed" Height="680" Width="800"
         WindowStartupLocation="CenterScreen">
-    <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+
+    <Grid>
         <Border Background="White"
                 CornerRadius="8"
                 Padding="30"
                 Width="420"
-                Height="600">
+                Height="600"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
             <Border.Effect>
                 <DropShadowEffect BlurRadius="15" Direction="-90" RenderingBias="Quality" ShadowDepth="2" Opacity="0.1" />
             </Border.Effect>
@@ -80,7 +83,7 @@
                                                     <Button.Style>
                                                         <Style TargetType="Button">
                                                             <Setter Property="Background" Value="Transparent" />
-                                                            <Setter Property="Foreground" Value="Black" />
+                                                            <Setter Property="Foreground" Value="#2563EB" />
                                                             <Style.Triggers>
                                                                 <DataTrigger Binding="{Binding FoiCurtido}"
                                                                              Value="True">
@@ -105,5 +108,39 @@
                 </ScrollViewer>
             </Grid>
         </Border>
+
+        <Button Width="56"
+                Height="56"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="0,0,30,30"
+                Cursor="Hand"
+                Click="BtnNovoPost_OnClick">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Border x:Name="ButtonBorder"
+                                Background="#2563EB"
+                                CornerRadius="28">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="8" Direction="-90" ShadowDepth="3" Opacity="0.3" />
+                            </Border.Effect>
+                            <TextBlock Text="+"
+                                       Foreground="White"
+                                       FontSize="28"
+                                       FontWeight="Normal"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,0,4" />
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ButtonBorder" Property="Background" Value="#1D4ED8" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
     </Grid>
 </Window>
