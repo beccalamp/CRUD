@@ -142,7 +142,7 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        
+
         <Button Width="56"
                 Height="56"
                 HorizontalAlignment="Right"
@@ -176,6 +176,6 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        
+
     </Grid>
 </Window>

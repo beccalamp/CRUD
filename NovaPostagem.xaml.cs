@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using CRUD.Modelos;
 using MySql.Data.MySqlClient;
 
@@ -8,7 +7,8 @@ namespace CRUD;
 
 public partial class NovaPostagem : Window
 {
-    private Usuario _usuario;
+    private readonly Usuario _usuario;
+
     public NovaPostagem(Usuario usuario)
     {
         _usuario = usuario;
