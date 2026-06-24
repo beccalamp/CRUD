@@ -42,7 +42,7 @@ public partial class Feed : Window
                 MessageBox.Show("Nenhum postagem foi encontrada");
                 return;
             }
-            
+
             while (leitor.Read())
             {
                 var post = new Postagem
@@ -132,5 +132,38 @@ public partial class Feed : Window
     {
         new MeuPerfil(_usuario).ShowDialog();
         CarregarPosts_QuandoIniciar();
+    }
+
+    private void BtnApagarPostagem_OnClick(object sender, RoutedEventArgs e)
+    {
+        var resultadoConfirmacao = MessageBox.Show("Tem certeza que deseja apagar o postagem?", "Confirmar exclusão",
+            MessageBoxButton.YesNo);
+
+        if (resultadoConfirmacao == MessageBoxResult.No) return;
+
+        var botao = (Button)sender;
+        var postagemId = (int)botao.Tag;
+
+        using var conexao = new MySqlConnection(App.StringConexao);
+        const string query = "DELETE FROM postagens WHERE id = @postagens_id";
+        using var comando = new MySqlCommand(query, conexao);
+        comando.Parameters.AddWithValue("postagens_id", postagemId);
+
+        try
+        {
+            conexao.Open();
+            var linhasAfetadas = comando.ExecuteNonQuery();
+            if (linhasAfetadas == 1) throw new Exception("A ação de exclusão do post não deu certo!");
+            MessageBox.Show("Sua postagem foi deletada com sucesso!");
+            CarregarPosts_QuandoIniciar();
+        }
+        catch (Exception exception)
+        {
+            MessageBox.Show($"Erro de DB: {exception.Message}");
+        }
+        finally
+        {
+            conexao.Close();
+        }
     }
 }

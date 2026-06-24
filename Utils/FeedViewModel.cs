@@ -32,7 +32,8 @@ public class FeedViewModel : INotifyPropertyChanged
             Curtidas = 12,
             FoiCurtido = false,
             PostadoEm = DateTime.Now.AddMinutes(-30),
-            Usuario = usuarioExemplo
+            Usuario = usuarioExemplo,
+            SuaPostagem =  true
         });
 
         Postagens.Add(new Postagem
