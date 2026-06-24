@@ -10,10 +10,10 @@
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="BotaoSemBorda" TargetType="Button">
-            <Setter Property="BorderThickness" Value="0"/>
-                </Style>
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+        <BooleanToVisibilityConverter x:Key="ConverterSuaPostagem"/>
     </Window.Resources>
-    
     <Window.DataContext>
         <utils:FeedViewModel />
     </Window.DataContext>
@@ -107,23 +107,28 @@
                                                 <TextBlock VerticalAlignment="Center"
                                                            Margin="8,0"
                                                            Text="{Binding Curtidas, StringFormat='{}{0} curtidas'}" />
-                                                
-                                                <Button Background="Transparent" Style="{StaticResource BotaoSemBorda}">
-                                                    <Path Data="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"
-                                                          Width="24"
-                                                          Height="24"
-                                                          Fill="Black"
-                                                          Stretch="Fill"
-                                                          />
+
+
+                                                <StackPanel Orientation="Horizontal" Visibility="{Binding SuaPostagem, Converter={StaticResource ConverterSuaPostagem}}">
+                                                    <Button Background="Transparent"
+                                                            Style="{StaticResource BotaoSemBorda}">
+                                                        <Path
+                                                            Data="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"
+                                                            Width="24"
+                                                            Height="24"
+                                                            Fill="Black"
+                                                            Stretch="Fill" />
                                                     </Button>
-                                                <Button Background="Transparent" Style="{StaticResource BotaoSemBorda}">
-                                                    <Path Data="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"
-                                                          Width="24"
-                                                          Height="24"
-                                                          Fill="Black"
-                                                          Stretch="Fill"
-                                                          />
+                                                    <Button Background="Transparent"
+                                                            Style="{StaticResource BotaoSemBorda}">
+                                                        <Path
+                                                            Data="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"
+                                                            Width="24"
+                                                            Height="24"
+                                                            Fill="Black"
+                                                            Stretch="Fill" />
                                                     </Button>
+                                                </StackPanel>
                                             </StackPanel>
                                         </StackPanel>
                                     </Border>
@@ -185,12 +190,12 @@
                             <Border.Effect>
                                 <DropShadowEffect BlurRadius="8" Direction="-90" ShadowDepth="3" Opacity="0.3" />
                             </Border.Effect>
-                            <Path Data="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h360v80H200v560h560v-360h80v360q0 33-23.5 56.5T760-120H200Zm120-160v-80h320v80H320Zm0-120v-80h320v80H320Zm0-120v-80h320v80H320Zm360-80v-80h-80v-80h80v-80h80v80h80v80h-80v80h-80Z"
+                            <Path
+                                Data="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h360v80H200v560h560v-360h80v360q0 33-23.5 56.5T760-120H200Zm120-160v-80h320v80H320Zm0-120v-80h320v80H320Zm0-120v-80h320v80H320Zm360-80v-80h-80v-80h80v-80h80v80h80v80h-80v80h-80Z"
                                 Height="24"
                                 Width="24"
                                 Fill="White"
-                                Stretch="Fill"
-                                />
+                                Stretch="Fill" />
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>

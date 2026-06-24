@@ -21,7 +21,7 @@ public partial class Feed : Window
         List<Postagem> listaPostagens = [];
 
         const string query =
-            "SELECT p.id, p.conteudo, p.curtidas, p.postado_em, u.nome, u.username, IF(cp.usuario_id IS NOT NULL, TRUE, FALSE) AS curtido FROM postagens p INNER JOIN usuarios u ON p.usuario_id = u.id LEFT JOIN curtidas_postagens cp ON cp.postagem_id = p.id AND cp.usuario_id = @usuario_id ORDER BY p.postado_em DESC";
+            "SELECT p.id, p.conteudo, p.curtidas, p.postado_em, u.id AS usuario_id, u.nome, u.username, IF(cp.usuario_id IS NOT NULL, TRUE, FALSE) AS curtido FROM postagens p INNER JOIN usuarios u ON p.usuario_id = u.id LEFT JOIN curtidas_postagens cp ON cp.postagem_id = p.id AND cp.usuario_id = @usuario_id ORDER BY p.postado_em DESC";
 
         using var conexao = new MySqlConnection(App.StringConexao);
 
@@ -42,8 +42,7 @@ public partial class Feed : Window
                 MessageBox.Show("Nenhum postagem foi encontrada");
                 return;
             }
-
-            // Caso tenha, ler linha por linha em uma repetição
+            
             while (leitor.Read())
             {
                 var post = new Postagem
@@ -52,6 +51,7 @@ public partial class Feed : Window
                     Conteudo = leitor.GetString("conteudo"),
                     Curtidas = leitor.GetInt32("curtidas"),
                     PostadoEm = leitor.GetDateTime("postado_em"),
+                    SuaPostagem = leitor.GetInt32("usuario_id") == _usuario.Id,
                     FoiCurtido = leitor.GetBoolean("curtido"),
                     Usuario = new Usuario
                     {

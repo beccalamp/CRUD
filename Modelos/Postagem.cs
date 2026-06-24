@@ -33,6 +33,8 @@ public class Postagem : INotifyPropertyChanged
             NotificarPropriedadeAlterada();
         }
     }
+    
+    public bool SuaPostagem { get; set; }
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
