@@ -124,7 +124,7 @@ public partial class Feed : Window
 
     private void BtnNovoPost_OnClick(object sender, RoutedEventArgs e)
     {
-        new NovaPostagem(_usuario).ShowDialog();
+        new JanelaPostagem(_usuario).ShowDialog();
         CarregarPosts_QuandoIniciar();
     }
 
@@ -136,7 +136,7 @@ public partial class Feed : Window
 
     private void BtnApagarPostagem_OnClick(object sender, RoutedEventArgs e)
     {
-        var resultadoConfirmacao = MessageBox.Show("Tem certeza que deseja apagar o postagem?", "Confirmar exclusão",
+        var resultadoConfirmacao = MessageBox.Show("Tem certeza que deseja apagar a postagem?", "Confirmar exclusão",
             MessageBoxButton.YesNo);
 
         if (resultadoConfirmacao == MessageBoxResult.No) return;
@@ -153,7 +153,7 @@ public partial class Feed : Window
         {
             conexao.Open();
             var linhasAfetadas = comando.ExecuteNonQuery();
-            if (linhasAfetadas == 1) throw new Exception("A ação de exclusão do post não deu certo!");
+            if (linhasAfetadas == 0) throw new Exception("A ação de exclusão do post não deu certo!");
             MessageBox.Show("Sua postagem foi deletada com sucesso!");
             CarregarPosts_QuandoIniciar();
         }
@@ -165,5 +165,14 @@ public partial class Feed : Window
         {
             conexao.Close();
         }
+    }
+
+    private void BtnEditarPostagem_OnClick(object sender, RoutedEventArgs e)
+    {
+        var botao = (Button)sender;
+        var postagem = (Postagem)botao.Tag;
+        
+        new  JanelaPostagem(_usuario, postagem).ShowDialog();
+        CarregarPosts_QuandoIniciar();
     }
 }
